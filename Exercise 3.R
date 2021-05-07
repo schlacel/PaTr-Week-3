@@ -51,5 +51,15 @@ caro <- caro %>%
   ungroup() %>%
   mutate(static = stepMean < mean(stepMean, na.rm = TRUE))
 
+caro_filter <- caro %>%
+  filter(!static)
+
 View(caro)
+
+####Task 3 - Visualize segmented trajectories ##################################
+
+ggplot(data = caro, mapping = aes(x= E, y=N) )+
+  geom_path()+
+  geom_point(aes(colour=static))+
+  coord_equal()
 
