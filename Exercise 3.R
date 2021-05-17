@@ -63,3 +63,19 @@ ggplot(data = caro, mapping = aes(x= E, y=N) )+
   geom_point(aes(colour=static))+
   coord_equal()
 
+####Task 4 - Segment-based analysis#############################################
+
+#creating an unique ID for each segment:
+
+rle_id <- function(vec){
+  x <- rle(vec)$lengths
+  as.factor(rep(seq_along(x), times=x))
+}
+
+caro <- caro %>%
+  mutate(segment_id = rle_id(static))
+
+ggplot(data = caro, mapping = aes(x= E, y=N) )+
+  geom_path(aes(colour=segment_id))+
+  geom_point(aes(colour=segment_id))+
+  coord_equal()
