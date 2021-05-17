@@ -78,4 +78,30 @@ caro <- caro %>%
 ggplot(data = caro, mapping = aes(x= E, y=N) )+
   geom_path(aes(colour=segment_id))+
   geom_point(aes(colour=segment_id))+
-  coord_equal()
+  coord_equal()+
+  labs(title = "All segments (uncleaned)")+
+  theme(title=element_text(size=8),legend.position = "none")
+
+
+#remove all segments n<5: 
+
+caro_filter_clean<- caro %>%
+  group_by(segment_id)%>%
+  mutate(n= n())%>%
+  filter(n>=5)
+
+ggplot(data = caro_filter_clean, mapping = aes(x= E, y=N) )+
+  geom_path(aes(colour=segment_id))+
+  geom_point(aes(colour=segment_id))+
+  coord_equal()+
+  labs(title = "Long segments (removed <5)")+
+  theme(title=element_text(size=8),legend.position = "none")
+
+
+####Task 5 - Similarity measures################################################
+
+pedestrian<-read_delim("pedestrian.csv",",")
+
+View(pedestrian)
+
+
